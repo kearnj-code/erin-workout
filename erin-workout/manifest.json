@@ -1,0 +1,24 @@
+{
+  "name": "Erin's Workout",
+  "short_name": "Erin's Fit",
+  "description": "Guided weekly workout program with MadFit videos",
+  "start_url": "/erin-workout/",
+  "display": "standalone",
+  "background_color": "#3d2b2b",
+  "theme_color": "#3d2b2b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
