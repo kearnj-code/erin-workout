@@ -6,7 +6,9 @@
       "Bash(git commit:*)",
       "Bash(git remote:*)",
       "Bash(git push:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(mv erin-workout/* .)",
+      "Bash(mv erin-workout/.* .)"
     ]
   }
 }
