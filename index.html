@@ -296,7 +296,37 @@
   }
   .set-sub { font-size: 0.7rem; color: #bbb; }
 
-  /* ── REST DAY ── */
+  /* ── SNACK CARD ── */
+  .snack-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 2px 10px var(--shadow);
+    margin-bottom: 0.75rem;
+    border-left: 4px solid #e8a23a;
+  }
+  .snack-title {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--deep);
+    margin-bottom: 0.3rem;
+  }
+  .snack-detail {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.5;
+  }
+  .snack-badge {
+    display: inline-block;
+    background: #fff3e0;
+    color: #e8a23a;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 99px;
+    margin-top: 0.5rem;
+    letter-spacing: 0.04em;
+  }
   .rest-card {
     background: linear-gradient(135deg, #f0f7ee, #e8f4e6);
     border-radius: 16px;
@@ -681,6 +711,7 @@
 <script>
 // ── DATA ──
 const PROGRAM = [
+  // ── MONDAY — Full Body ──
   {
     dayName: "Monday",
     label: "Full Body",
@@ -696,90 +727,123 @@ const PROGRAM = [
         tags: ["Warm-up", "No jumping", "5 min"]
       },
       {
-        id: "Sm-8VdUv_QY",
-        title: "20-Min Full Body Beginner Workout (No Equipment)",
-        desc: "A total beginner full body routine. No jumping, no equipment, Maddie guides you through every move with form cues.",
-        tags: ["Full body", "Beginner", "No equipment", "20 min"]
+        id: "oKfNUOWuZV8",
+        title: "20-Min Full Body Workout (No Equipment)",
+        desc: "Intense full body workout at home — no equipment needed. Maddie guides every move.",
+        tags: ["Full body", "No equipment", "20 min"]
       }
     ],
     exercises: [
       { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
-      { name: "Follow the main workout video", detail: "Pause when you need rest", sets: "1×", sub: "20 min" }
+      { name: "Full body workout", detail: "Pause when you need rest", sets: "1×", sub: "20 min" }
     ],
-    tip: "Today is about form over speed. Pause the video whenever you need — that's what the pause button is for!"
+    tip: "Start the week strong. Pause the video whenever you need — that's what the pause button is for!"
   },
+
+  // ── TUESDAY — Office Snacks ──
   {
     dayName: "Tuesday",
-    label: "Rest Day",
-    title: "Rest & Recover",
-    emoji: "🧘",
-    duration: "Optional stretch",
-    type: "rest",
-    videos: [
-      {
-        id: "L_xrDAtykMI",
-        title: "10-Min Full Body Stretch",
-        desc: "A gentle cool-down stretch to keep you loose and reduce soreness. Perfect for rest days.",
-        tags: ["Stretch", "Low impact", "10 min"]
-      }
+    label: "Work Snacks",
+    title: "Office Movement",
+    emoji: "💼",
+    duration: "3 × 5 min",
+    type: "workout",
+    videos: [],
+    exercises: [
+      { name: "Snack 1 — Wall sit + calf raises", detail: "Wall sit 45s → calf raises 15 reps × 3. Hallway or empty room.", sets: "3×", sub: "5 min" },
+      { name: "Snack 2 — Standing core circuit", detail: "Standing march 30s → oblique crunches 20 → standing glute kickbacks 15 each side.", sets: "2×", sub: "5 min" },
+      { name: "Snack 3 — Upper body desk circuit", detail: "Desk push-ups 15 → tricep dips on chair 12 → shoulder circles 30s. No sweat, no equipment.", sets: "2×", sub: "5 min" }
     ],
-    tip: "Rest days matter as much as workout days. Your muscles repair and grow on days off."
+    tip: "Spread these across the day — one mid-morning, one at lunch, one mid-afternoon. Nobody needs to know you're working out."
   },
+
+  // ── WEDNESDAY — Office Snacks ──
   {
     dayName: "Wednesday",
-    label: "Core + Arms",
-    title: "Core & Upper Body",
-    emoji: "🔥",
-    duration: "25 min",
+    label: "Work Snacks",
+    title: "Office Movement",
+    emoji: "💼",
+    duration: "3 × 5 min",
+    type: "workout",
+    videos: [],
+    exercises: [
+      { name: "Snack 1 — Squat pulses + lunges", detail: "Bodyweight squats 20 → pulse at bottom 10s → alternating lunges 10 each. Hallway works perfectly.", sets: "3×", sub: "5 min" },
+      { name: "Snack 2 — Posture reset circuit", detail: "Chest opener stretch 30s → shoulder blade squeezes 15 → neck rolls → cat-cow standing. Great after sitting all morning.", sets: "2×", sub: "5 min" },
+      { name: "Snack 3 — Glute activation", detail: "Standing kickbacks 20 each → lateral leg raises 15 each → glute squeezes hold 10s × 5. Can literally do this at your desk.", sets: "2×", sub: "5 min" }
+    ],
+    tip: "Wednesday snacks lean into lower body and posture — counter-balancing sitting all day. The glute squeeze one you can do without even leaving your chair."
+  },
+
+  // ── THURSDAY — Back + Shoulders + Tris ──
+  {
+    dayName: "Thursday",
+    label: "Back + Shoulders",
+    title: "Back, Shoulders & Tris",
+    emoji: "💪",
+    duration: "30 min",
     type: "workout",
     videos: [
       {
         id: "_sNRH65Wmuw",
         title: "5-Min Warm-Up (No Jumping)",
-        desc: "Same quick warm-up as Monday. Five minutes, no excuses.",
+        desc: "Loosen up the shoulders and upper back before loading them.",
         tags: ["Warm-up", "5 min"]
       },
       {
-        id: "2pLT-olgUJs",
-        title: "10-Min Abs Workout (Beginner)",
-        desc: "Low impact core routine. Maddie shows modifications throughout — follow whatever feels right.",
-        tags: ["Core", "Beginner", "10 min"]
+        id: "mHyScGuLIzU",
+        title: "15-Min Back Workout (Dumbbells)",
+        desc: "Rows, pull-throughs, and rear delt work. Heavy emphasis on the upper and mid back. Grab a weight that makes the last few reps hard.",
+        tags: ["Back", "Dumbbells", "15 min"]
       },
       {
-        id: "kfP_9z-BtmA",
-        title: "10-Min Pull & Back Focus (No Equipment)",
-        desc: "Hits rear delts, upper back, and biceps using C-rotations, goal posts, L-arms, and reverse fly motions. No weights needed — arms stay up the whole time so expect a burn.",
-        tags: ["Back", "Pull", "No equipment", "10 min"]
+        id: "l0CwCvJbGZI",
+        title: "10-Min Shoulders & Tris (Dumbbells)",
+        desc: "Shoulder press, lateral raises, overhead tricep extensions. All standing, no floor work. Pair with the back video for a full pull/push upper session.",
+        tags: ["Shoulders", "Triceps", "Dumbbells", "10 min"]
       }
     ],
     exercises: [
       { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
-      { name: "Abs routine", detail: "Pause when needed", sets: "1×", sub: "10 min" },
-      { name: "Pull & back focus", detail: "Rear delts, upper back, biceps — no weights", sets: "1×", sub: "10 min" }
+      { name: "Back workout", detail: "Go heavy on the rows", sets: "1×", sub: "15 min" },
+      { name: "Shoulders & tris", detail: "Control the eccentric — slow down!", sets: "1×", sub: "10 min" }
     ],
-    tip: "Your core is your foundation. Even if you can only do 5 minutes today, that's a win."
+    tip: "Back before shoulders — that's the right order. Your rear delts and mid-back are already warm from the rows, so the shoulder work hits harder."
   },
-  {
-    dayName: "Thursday",
-    label: "Rest Day",
-    title: "Walk or Stretch",
-    emoji: "🌿",
-    duration: "Optional",
-    type: "rest",
-    videos: [
-      {
-        id: "L_xrDAtykMI",
-        title: "Full Body Stretch",
-        desc: "Optional gentle stretch. Even a 20-minute walk outside counts today.",
-        tags: ["Stretch", "Recovery"]
-      }
-    ],
-    tip: "A 20-minute walk counts as active recovery and is great for your mood and energy."
-  },
+
+  // ── FRIDAY — Bonus / Flex ──
   {
     dayName: "Friday",
+    label: "Bonus Day",
+    title: "Got Time Today?",
+    emoji: "⚡",
+    duration: "Every other week",
+    type: "bonus",
+    videos: [
+      {
+        id: "_sNRH65Wmuw",
+        title: "5-Min Warm-Up",
+        desc: "Quick warm-up before the main session.",
+        tags: ["Warm-up", "5 min"]
+      },
+      {
+        id: "eZSM0l8DAno",
+        title: "15-Min Metabolic HIIT (No Jumping)",
+        desc: "High intensity, zero jumping. A strong finisher to the week when you have the time.",
+        tags: ["HIIT", "Cardio", "Metabolic", "15 min"]
+      }
+    ],
+    exercises: [
+      { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
+      { name: "Metabolic HIIT", detail: "Push effort — this one counts extra", sets: "1×", sub: "15 min" }
+    ],
+    tip: "This is a bonus — only on weeks when you have the time. Skip it guilt-free when you don't. The week is already solid without it."
+  },
+
+  // ── SATURDAY — Legs + Glutes ──
+  {
+    dayName: "Saturday",
     label: "Legs & Glutes",
-    title: "Weighted Leg Day",
+    title: "Legs & Glutes",
     emoji: "🦵",
     duration: "30 min",
     type: "workout",
@@ -792,46 +856,46 @@ const PROGRAM = [
       },
       {
         id: "4iy4yEKa7W8",
-        title: "20-Min Lower Body Strength (Dumbbells)",
+        title: "Lower Body Strength (Dumbbells)",
         desc: "Squats, RDLs, lunges, and glute work with dumbbells. Use a weight that actually challenges you — 10–20 lbs depending on the move.",
-        tags: ["Legs", "Glutes", "Dumbbells", "Squats", "Deadlifts", "20 min"]
+        tags: ["Legs", "Glutes", "Dumbbells", "Squats", "Deadlifts", "30 min"]
       }
     ],
     exercises: [
       { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
-      { name: "Weighted leg workout", detail: "Go heavier on squats & RDLs", sets: "1×", sub: "20 min" }
+      { name: "Weighted leg workout", detail: "Go heavier on squats & RDLs", sets: "1×", sub: "30 min" }
     ],
     tip: "Grab real weight for this one — 10–20 lbs on squats and deadlifts. If the last few reps don't burn, go heavier next time."
   },
+
+  // ── SUNDAY — Core + Run ──
   {
-    dayName: "Saturday",
-    label: "Cardio",
-    title: "Metabolic HIIT",
-    emoji: "🔥",
-    duration: "15 min",
+    dayName: "Sunday",
+    label: "Core + Run",
+    title: "Core Then Run",
+    emoji: "🏃",
+    duration: "30–45 min",
     type: "workout",
     videos: [
       {
-        id: "eZSM0l8DAno",
-        title: "15-Min Full Body HIIT (No Jumping)",
-        desc: "High intensity, zero jumping but genuinely hard. Gets your heart rate up and works the whole body. Push the pace — this is supposed to burn.",
-        tags: ["HIIT", "Cardio", "No jumping", "Metabolic", "15 min"]
+        id: "_sNRH65Wmuw",
+        title: "5-Min Warm-Up (No Jumping)",
+        desc: "Start here before the core work.",
+        tags: ["Warm-up", "5 min"]
+      },
+      {
+        id: "2pLT-olgUJs",
+        title: "10-Min Core Workout",
+        desc: "Abs and core work first — this is the sequence that matters. Strong core makes every run better. Finish this before you head out.",
+        tags: ["Core", "Abs", "10 min"]
       }
     ],
     exercises: [
-      { name: "Full body HIIT", detail: "Push effort — don't coast", sets: "1×", sub: "15 min" }
+      { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
+      { name: "Core workout", detail: "Finish before your run", sets: "1×", sub: "10 min" },
+      { name: "Run", detail: "Your pace, your distance", sets: "1×", sub: "20–30 min" }
     ],
-    tip: "Saturday is short but intense. If it doesn't feel hard, you're not pushing hard enough. Full effort for 15 minutes."
-  },
-  {
-    dayName: "Sunday",
-    label: "Rest Day",
-    title: "Full Rest",
-    emoji: "☀️",
-    duration: "You've earned it",
-    type: "rest",
-    videos: [],
-    tip: "You worked hard this week. Rest fully today and come back strong on Monday."
+    tip: "Core first, run second — always in that order. The sequence matters. A braced, trained core makes every step of your run more efficient."
   }
 ];
 
@@ -864,7 +928,7 @@ const RUN_OPTIONS = [
 // Rules: never put 3 workout days in a row; always protect at least 1 rest day per 3 days
 function getEffectiveWeek() {
   // Returns array of 7 effective day types: 'workout'|'rest'|'run'
-  const base = PROGRAM.map(d => d.type); // original pattern
+  const base = PROGRAM.map(d => d.type === 'bonus' ? 'workout' : d.type);
   const runDayIndices = Object.keys(state.runDays).map(Number).filter(i => state.runDays[i]);
 
   if (runDayIndices.length === 0) return base;
@@ -932,6 +996,8 @@ function buildWeekBar() {
     let cls = 'day-pill' + (i === activeDay ? ' active' : '') + (state.completed[i] ? ' done' : '');
     let label = day.dayName.slice(0,3);
     if (effType === 'run' && !state.completed[i]) label = '🏃';
+    if (day.type === 'bonus' && !state.completed[i] && i !== activeDay) label = '⚡';
+    if (day.label === 'Work Snacks' && !state.completed[i] && i !== activeDay) label = '💼';
     pill.className = cls;
     pill.textContent = label;
     pill.title = day.dayName + (effType === 'run' ? ' (Run Day)' : '');
@@ -958,8 +1024,14 @@ function renderDay() {
   const hasRunToggled = !!runChoice;
 
   // Hero — changes color if run day
+  const isSnackDay = basDay.label === 'Work Snacks';
+  const isBonusDay = basDay.type === 'bonus';
   const heroGrad = isRunDay
     ? 'linear-gradient(135deg, #2a4070 0%, #5b8dd9 100%)'
+    : isSnackDay
+    ? 'linear-gradient(135deg, #7a4f1a 0%, #c97a2a 100%)'
+    : isBonusDay
+    ? 'linear-gradient(135deg, #2d5a27 0%, #5a9e4f 100%)'
     : 'linear-gradient(135deg, var(--deep) 0%, var(--warm) 100%)';
   const heroEmoji = isRunDay ? '🏃' : basDay.emoji;
   const heroLabel = isRunDay ? 'Run Day' : basDay.label;
@@ -1052,6 +1124,37 @@ function renderDay() {
     const day = basDay;
     const currentEffType = hasRunToggled ? 'run' : effType;
 
+    // Snack day — render cards instead of video checklist
+    if (!hasRunToggled && isSnackDay && day.exercises) {
+      html += `<div class="section-label">Today's Work Snacks</div>`;
+      html += `<div class="tip-card" style="margin-bottom:0.75rem"><strong>💡 How to use these</strong>Spread them across your day — one mid-morning, one at lunch, one mid-afternoon. Each takes 5 minutes in a hallway or empty room. No sweat, no equipment, no one needs to know.</div>`;
+      day.exercises.forEach((ex, ei) => {
+        const done = state.completed[`${activeDay}_ex_${ei}`];
+        html += `
+          <div class="workout-card${done ? ' completed' : ''}" onclick="toggleExercise(${ei})" style="${done ? '' : 'border-color:#e8a23a22'}">
+            <div class="check-circle" style="${done ? '' : 'border-color:#e8a23a'}">
+              <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="workout-info">
+              <div class="workout-name">${ex.name}</div>
+              <div class="workout-detail">${ex.detail}</div>
+            </div>
+            <div class="workout-sets">
+              <div class="set-count" style="color:#e8a23a">${ex.sets}</div>
+              <div class="set-sub">${ex.sub}</div>
+            </div>
+          </div>
+        `;
+      });
+      const total = day.exercises.length;
+      const done = day.exercises.filter((_, i) => state.completed[`${activeDay}_ex_${i}`]).length;
+      const pct = Math.round((done / total) * 100);
+      html += `
+        <div class="progress-wrap"><div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,#e8a23a,#c97b6e)"></div></div>
+        <div class="progress-label">${done} of ${total} snacks done</div>
+      `;
+    }
+
     // Videos (show if normal workout/rest, or if run not fully set up)
     if (!hasRunToggled && day.videos.length > 0) {
       html += `<div class="section-label">Follow Along Videos</div>`;
@@ -1082,7 +1185,7 @@ function renderDay() {
     }
 
     // Checklist
-    if (!hasRunToggled && effType === 'workout' && day.type === 'workout' && day.exercises) {
+    if (!hasRunToggled && (effType === 'workout' || isBonusDay) && (day.type === 'workout' || day.type === 'bonus') && day.exercises && !isSnackDay) {
       html += `<div class="section-label">Workout Checklist</div>`;
       day.exercises.forEach((ex, ei) => {
         const done = state.completed[`${activeDay}_ex_${ei}`];
@@ -1164,6 +1267,8 @@ function renderDay() {
   // ── COMPLETE BUTTON ──
   if (!isCompleted) {
     const btnLabel = isRunDay && hasRunToggled ? 'Log My Run ✓'
+      : isSnackDay ? 'Log Work Snacks ✓'
+      : isBonusDay ? 'Log Bonus Workout ✓ 🌟'
       : effType === 'rest' ? 'Mark Rest Day Complete ✓'
       : 'Mark Workout Complete ✓';
     const canComplete = !isRunDay || hasRunToggled; // can't complete run day without picking a type
