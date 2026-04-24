@@ -727,7 +727,7 @@ const PROGRAM = [
         tags: ["Warm-up", "No jumping", "5 min"]
       },
       {
-        id: "oKfNUOWuZV8",
+        id: "6zIaiaeWRWQ",
         title: "20-Min Full Body Workout (No Equipment)",
         desc: "Intense full body workout at home — no equipment needed. Maddie guides every move.",
         tags: ["Full body", "No equipment", "20 min"]
@@ -796,10 +796,10 @@ const PROGRAM = [
         tags: ["Back", "Dumbbells", "15 min"]
       },
       {
-        id: "l0CwCvJbGZI",
-        title: "10-Min Shoulders & Tris (Dumbbells)",
-        desc: "Shoulder press, lateral raises, overhead tricep extensions. All standing, no floor work. Pair with the back video for a full pull/push upper session.",
-        tags: ["Shoulders", "Triceps", "Dumbbells", "10 min"]
+        id: "yGzAymC9DXw",
+        title: "10-Min Standing Arms (Biceps, Triceps & Shoulders)",
+        desc: "All standing, no repeats — biceps, triceps, and shoulders. Pairs directly with the back video. Grab dumbbells you can still press overhead for 10 reps.",
+        tags: ["Shoulders", "Triceps", "Biceps", "Dumbbells", "10 min"]
       }
     ],
     exercises: [
@@ -826,10 +826,10 @@ const PROGRAM = [
         tags: ["Warm-up", "5 min"]
       },
       {
-        id: "eZSM0l8DAno",
-        title: "15-Min Metabolic HIIT (No Jumping)",
-        desc: "High intensity, zero jumping. A strong finisher to the week when you have the time.",
-        tags: ["HIIT", "Cardio", "Metabolic", "15 min"]
+        id: "j6uyuZYiTGk",
+        title: "15-Min Full Body HIIT (All Standing, No Repeats)",
+        desc: "Standing only, no jumps, no repeats. High intensity that doesn't wreck the knees. Do this when you have an extra 15 min and want to push.",
+        tags: ["HIIT", "Cardio", "Standing", "No jumping", "15 min"]
       }
     ],
     exercises: [
@@ -855,10 +855,10 @@ const PROGRAM = [
         tags: ["Warm-up", "No jumping", "5 min"]
       },
       {
-        id: "4iy4yEKa7W8",
-        title: "Lower Body Strength (Dumbbells)",
-        desc: "Squats, RDLs, lunges, and glute work with dumbbells. Use a weight that actually challenges you — 10–20 lbs depending on the move.",
-        tags: ["Legs", "Glutes", "Dumbbells", "Squats", "Deadlifts", "30 min"]
+        id: "BFRYY12wQtc",
+        title: "15-Min Legs, Butt & Thighs (Dumbbells)",
+        desc: "Quick but killer lower body circuit with dumbbells. Squats, lunges, and glute work. Go as heavy as you can with good form — if the last two reps aren't a grind, add weight.",
+        tags: ["Legs", "Glutes", "Dumbbells", "15 min"]
       }
     ],
     exercises: [
@@ -875,7 +875,7 @@ const PROGRAM = [
     title: "Core Then Run",
     emoji: "🏃",
     duration: "30–45 min",
-    type: "workout",
+    type: "corerun",
     videos: [
       {
         id: "_sNRH65Wmuw",
@@ -884,18 +884,24 @@ const PROGRAM = [
         tags: ["Warm-up", "5 min"]
       },
       {
-        id: "2pLT-olgUJs",
-        title: "10-Min Core Workout",
-        desc: "Abs and core work first — this is the sequence that matters. Strong core makes every run better. Finish this before you head out.",
-        tags: ["Core", "Abs", "10 min"]
+        id: "s6vacIKdxog",
+        title: "Core — Quick Abs & Core",
+        desc: "5-min daily abs — short and effective. Pick this when legs feel fresh and you want a quick core hit before your run.",
+        tags: ["Core", "Abs", "5 min"]
+      },
+      {
+        id: "yGzAymC9DXw",
+        title: "Upper Focus — Standing Arms",
+        desc: "Standing arms and shoulders — a lighter active recovery option when your legs are wrecked from Saturday. Gets blood into the upper body before your run.",
+        tags: ["Arms", "Shoulders", "Active recovery", "10 min"]
       }
     ],
     exercises: [
       { name: "5-min warm-up", detail: "Short enough — don't skip it!", sets: "1×", sub: "5 min" },
-      { name: "Core workout", detail: "Finish before your run", sets: "1×", sub: "10 min" },
-      { name: "Run", detail: "Your pace, your distance", sets: "1×", sub: "20–30 min" }
+      { name: "Core workout (your pick)", detail: "Choose upper or lower below", sets: "1×", sub: "10 min" },
+      { name: "Run or walk", detail: "After core — always in that order", sets: "1×", sub: "20–30 min" }
     ],
-    tip: "Core first, run second — always in that order. The sequence matters. A braced, trained core makes every step of your run more efficient."
+    tip: "Core first, run second — always in that order. Pick upper focus if legs are wrecked from Saturday. Pick lower focus if your back/shoulders need a break."
   }
 ];
 
@@ -928,7 +934,7 @@ const RUN_OPTIONS = [
 // Rules: never put 3 workout days in a row; always protect at least 1 rest day per 3 days
 function getEffectiveWeek() {
   // Returns array of 7 effective day types: 'workout'|'rest'|'run'
-  const base = PROGRAM.map(d => d.type === 'bonus' ? 'workout' : d.type);
+  const base = PROGRAM.map(d => (d.type === 'bonus' || d.type === 'corerun') ? 'workout' : d.type);
   const runDayIndices = Object.keys(state.runDays).map(Number).filter(i => state.runDays[i]);
 
   if (runDayIndices.length === 0) return base;
@@ -936,30 +942,40 @@ function getEffectiveWeek() {
   const effective = [...base];
 
   runDayIndices.forEach(ri => {
-    if (effective[ri] === 'run') return; // already run
+    if (effective[ri] === 'run') return;
     const wasWorkout = effective[ri] === 'workout';
     effective[ri] = 'run';
 
-    // If we displaced a workout day, try to move it to the nearest rest day
     if (wasWorkout) {
-      // Search outward from ri for a rest slot (not another run day)
+      // Search outward from ri for a rest slot
+      let shifted = false;
       for (let dist = 1; dist < 7; dist++) {
         const candidates = [ri - dist, ri + dist].filter(c => c >= 0 && c < 7);
         for (const c of candidates) {
           if (effective[c] === 'rest') {
-            // Check we won't make 3 workouts in a row
             const before = c > 0 ? effective[c-1] : null;
             const after  = c < 6 ? effective[c+1] : null;
             const wouldStack = (before === 'workout' || before === 'run') &&
                                (after === 'workout' || after === 'run');
             if (!wouldStack) {
               effective[c] = 'workout';
+              shifted = true;
               return;
             }
           }
         }
+        if (shifted) return;
       }
-      // If no slot found, just leave the week as-is (run replaces workout gracefully)
+      // No clean slot — just find any rest day even if it stacks
+      for (let dist = 1; dist < 7; dist++) {
+        const candidates = [ri - dist, ri + dist].filter(c => c >= 0 && c < 7);
+        for (const c of candidates) {
+          if (effective[c] === 'rest') {
+            effective[c] = 'workout';
+            return;
+          }
+        }
+      }
     }
   });
 
@@ -1026,12 +1042,15 @@ function renderDay() {
   // Hero — changes color if run day
   const isSnackDay = basDay.label === 'Work Snacks';
   const isBonusDay = basDay.type === 'bonus';
+  const isCoreRunDay = basDay.type === 'corerun';
   const heroGrad = isRunDay
     ? 'linear-gradient(135deg, #2a4070 0%, #5b8dd9 100%)'
     : isSnackDay
     ? 'linear-gradient(135deg, #7a4f1a 0%, #c97a2a 100%)'
     : isBonusDay
     ? 'linear-gradient(135deg, #2d5a27 0%, #5a9e4f 100%)'
+    : isCoreRunDay
+    ? 'linear-gradient(135deg, #2a4070 0%, #7a4a8a 100%)'
     : 'linear-gradient(135deg, var(--deep) 0%, var(--warm) 100%)';
   const heroEmoji = isRunDay ? '🏃' : basDay.emoji;
   const heroLabel = isRunDay ? 'Run Day' : basDay.label;
@@ -1050,7 +1069,7 @@ function renderDay() {
   `;
 
   // ── RUN TOGGLE (shown on every day that isn't already completed) ──
-  if (!isCompleted) {
+  if (!isCompleted && !isCoreRunDay) {
     const reshuffleChanges = getReshuffleDescription();
     html += `
       <div class="run-toggle-wrap${hasRunToggled ? ' run-active' : ''}" id="runToggleWrap">
@@ -1156,7 +1175,86 @@ function renderDay() {
     }
 
     // Videos (show if normal workout/rest, or if run not fully set up)
-    if (!hasRunToggled && day.videos.length > 0) {
+    if (!hasRunToggled && isCoreRunDay) {
+      // ── CORE + RUN DAY: radio pick then run selector ──
+      const coreChoice = state.coreChoice || null;
+      const warmup = day.videos[0];
+      const lower  = day.videos[1];
+      const upper  = day.videos[2];
+      const chosen = coreChoice === 'upper' ? upper : coreChoice === 'lower' ? lower : null;
+
+      html += `<div class="section-label">Step 1 — Warm Up</div>`;
+      html += `
+        <div class="video-card">
+          <div class="video-wrapper">
+            <div class="video-thumb" id="thumb_${warmup.id}" onclick="loadVideo('${warmup.id}')">
+              <img src="https://img.youtube.com/vi/${warmup.id}/hqdefault.jpg" alt="thumbnail" onerror="this.style.display='none'">
+              <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+              <div class="thumb-label">Tap to play</div>
+            </div>
+            <iframe id="frame_${warmup.id}" style="display:none" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-info">
+            <div class="video-title">${warmup.title}</div>
+            <div class="video-desc">${warmup.desc}</div>
+          </div>
+        </div>
+      `;
+
+      html += `<div class="section-label">Step 2 — Pick Your Core Focus</div>`;
+      html += `
+        <div class="run-day-card" style="margin-bottom:0.75rem">
+          <p style="margin:0 0 0.75rem">Choose based on how you feel — upper if your legs are sore, lower if your back/shoulders need a rest.</p>
+          <div class="run-options">
+            <div class="run-option${coreChoice === 'lower' ? ' selected' : ''}" onclick="setCoreChoice('lower')">
+              <span class="run-option-label">🔻 Lower Core</span>
+              <span class="run-option-sub">Abs & lower core — good when legs feel fresh</span>
+            </div>
+            <div class="run-option${coreChoice === 'upper' ? ' selected' : ''}" onclick="setCoreChoice('upper')">
+              <span class="run-option-label">🔺 Upper Focus</span>
+              <span class="run-option-sub">Rear delts, upper back & core — good active recovery if legs are sore</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (chosen) {
+        html += `
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-thumb" id="thumb_${chosen.id}" onclick="loadVideo('${chosen.id}')">
+                <img src="https://img.youtube.com/vi/${chosen.id}/hqdefault.jpg" alt="thumbnail" onerror="this.style.display='none'">
+                <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                <div class="thumb-label">Tap to play</div>
+              </div>
+              <iframe id="frame_${chosen.id}" style="display:none" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-title">${chosen.title}</div>
+              <div class="video-desc">${chosen.desc}</div>
+              <div class="video-tags">${chosen.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `<div class="section-label">Step 3 — Run or Walk</div>`;
+      const runChoice2 = state.runDays[activeDay];
+      html += `
+        <div class="run-day-card">
+          <p style="margin:0 0 0.75rem">After core — always in this order.</p>
+          <div class="run-options">
+            ${RUN_OPTIONS.map(r => `
+              <div class="run-option${runChoice2 === r.id ? ' selected' : ''}" onclick="selectRunType('${r.id}')">
+                <span class="run-option-label">${r.label}</span>
+                <span class="run-option-sub">${r.sub}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+    } else if (!hasRunToggled && !isCoreRunDay && day.videos.length > 0) {
       html += `<div class="section-label">Follow Along Videos</div>`;
       day.videos.forEach(v => {
         html += `
@@ -1185,7 +1283,7 @@ function renderDay() {
     }
 
     // Checklist
-    if (!hasRunToggled && (effType === 'workout' || isBonusDay) && (day.type === 'workout' || day.type === 'bonus') && day.exercises && !isSnackDay) {
+    if (!hasRunToggled && (effType === 'workout' || isBonusDay || isCoreRunDay) && (day.type === 'workout' || day.type === 'bonus' || day.type === 'corerun') && day.exercises && !isSnackDay) {
       html += `<div class="section-label">Workout Checklist</div>`;
       day.exercises.forEach((ex, ei) => {
         const done = state.completed[`${activeDay}_ex_${ei}`];
@@ -1269,6 +1367,7 @@ function renderDay() {
     const btnLabel = isRunDay && hasRunToggled ? 'Log My Run ✓'
       : isSnackDay ? 'Log Work Snacks ✓'
       : isBonusDay ? 'Log Bonus Workout ✓ 🌟'
+      : isCoreRunDay ? 'Log Core + Run ✓ 🏃'
       : effType === 'rest' ? 'Mark Rest Day Complete ✓'
       : 'Mark Workout Complete ✓';
     const canComplete = !isRunDay || hasRunToggled; // can't complete run day without picking a type
@@ -1295,6 +1394,12 @@ function toggleRunDay() {
 
 function selectRunType(id) {
   state.runDays[activeDay] = id;
+  saveState();
+  renderDay();
+}
+
+function setCoreChoice(choice) {
+  state.coreChoice = choice;
   saveState();
   renderDay();
 }
